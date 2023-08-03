@@ -1,0 +1,273 @@
+import time
+from datetime import datetime
+import re
+
+#функция регистрация
+def kabinet():
+    zxc = 0
+    qwe = 0
+    print('Вас приветствует "Виталий Банк"!\nПожалуйста, создайте личный кабинет.') 
+    name = input('Придумайте логин: ')
+    while zxc != -1:
+        if name in '\n' or name in ' ':
+            print('\nВаш логин содержит недопустимые символы.') 
+            time.sleep(1)
+            print('Ваш логин не должен содержать пробелов и \nкрасных строк') 
+            time.sleep(2) 
+            name = input('\nПридумайте логин: ')
+        else:
+            zxc = -1
+            login.append(name)
+    pas = input('Придумайте пароль: ')        
+    while qwe != -1:
+        if pas in '\n' or pas in ' ':
+            print('\nВаш пароль содержит недопустимые символы.') 
+            time.sleep(1)
+            print('Ваш пароль не должен содержать пробелов и \nкрасных строк') 
+            time.sleep(2) 
+            pas = input('\nПридумайте пароль: ')
+        else:
+            qwe = -1
+            password.append(pas) 
+    time.sleep(1.5)  
+    print('\nВы успешно прошли регистрацию в \n"Виталий Банк"!\nСпасибо, что выбрали нас!')     
+            
+ #функция вход           
+def vhod():
+    tubus = 0
+    time.sleep(0.25) 
+    print('\n--------------------------------------------') 
+    time.sleep(0.25) 
+    print('\nПожалуйста, войдите в свой личный кабинет.') 
+    while tubus !=-1:
+        name = input('Введите логин: ') 
+        if name == login[0]:
+            pas = input('Введите пароль: ')
+            if pas == password[0]:
+                tubus = -1
+                time.sleep(1) 
+                print('\nВы вошли в свой личный кабинет')
+                #print('\n--------------------------------------------\n')
+                time.sleep(0.25) 
+                menu()
+            else:
+                time.sleep(0.5) 
+                print('Неверный пароль')
+                time.sleep(2) 
+        else:
+            time.sleep(0.5) 
+            print('Неверный логин') 
+            time.sleep(2)
+            name = input('Введите логин') 
+
+def menu():
+    x = 0
+    print('\n--------------------------------------------\n')
+    print('Здравствуйте,', login[0] )
+    print('Ваш баланс:', balance) 
+    print('\nПожалуйста, выберите функцию:\n1 - взять кредит.\n2 - перевести средства.\n9 - выйти из личного кабинета.')
+    main = input('\n------> ') 
+    while x != -1:
+        if main == '1':
+            x = -1
+            credit(procent)
+        elif main == '2':
+            x = -1
+            perevod() 
+        elif main == '9':
+            time.sleep(0.25) 
+            print('Досвидания,',login[0]) 
+            vhod() 
+        else:
+            print('\nВы ввели наверное число.')
+            time.sleep(1)
+            print('Вы должны ввести число, которое есть в списке') 
+            time.sleep(2)
+            main = input('\n------> ')
+                  
+        
+#функция - кредит
+def credit(procent):
+    x = 0
+    z = 0
+    f = 0
+    global balance
+    
+    #Приветствие
+    time.sleep(0.1) 
+    print('\n--------------------------------------------') 
+    time.sleep(0.5)
+    print('\nДобро пожаловать в "Виталий Банк"!') 
+    time.sleep(0.1) 
+    print('Мы выдаем кредит под процентую ставку -',str(procent) +'%\n') 
+    
+    #Сумма кредита
+    time.sleep(0.3) 
+    summa = input('Введите сумму кредита (в ₽):\n-------> ')
+    while x != -1:
+        if not summa.isdigit():
+            print('\nВы ввели неверное число.') 
+            time.sleep(1) 
+            print('Вы можете ввести любое число не являющимся \nотрицательным или равным нулю. ')
+            time.sleep(2) 
+            summa = input('\nВведите сумму кредита (в ₽):\n-------> ')    
+        if int(summa) >0:
+            x = -1
+        elif int(summa)<=0:    
+            print('\nВы ввели неверное число.') 
+            time.sleep(1) 
+            print('Вы можете ввести любое число не являющимся \nотрицательным или равным нулю. ')
+            time.sleep(2) 
+            summa = input('\nВведите сумму кредита (в ₽):\n-------> ')
+    
+    #Срок кредита        
+    time.sleep(0.3) 
+    timer = input('Введите срок кредита (в месяцах):\n-------> ')
+    while z != -1:
+        if not timer.isdigit():
+            print('\nВы ввели неверное число.') 
+            time.sleep(1) 
+            print('Вы можете ввести любое число не являющимся \nотрицательным или равным нулю. ')
+            time.sleep(2) 
+            timer = input('\nВведите срок кредита (в месяцах):\n-------> ')
+        if int(timer) > 0:
+            balance += int(summa) 
+            z = -1
+        elif timer <=0:
+            print('\nВы ввели неверное число.') 
+            time.sleep(1) 
+            print('Вы можете ввести любое число не являющимся \nотрицательным или равным нулю. ')
+            time.sleep(2)
+            timer = input('\nВведите срок кредита (в месяцах):\n-------> ')
+    
+    
+    #типо подсчет
+    print('\nМы подсчитываем ежемесячную плату для вас.') 
+    time.sleep(1)
+    print('Пожалуйста, подождите пару секунд.') 
+    time.sleep(1) 
+    print('.'), time.sleep(2), print('.'), time.sleep(2), print('.\n\n'), time.sleep(2) 
+    
+    #настоящий подсчет
+    plata = ((int(summa) *(procent/100)+int(summa))/int(timer))
+     
+    #Вывод платы
+    print('---------------------------') 
+    print('Кредитор:', login[0]) 
+    print('Банк: "Виталий банк"') 
+    print('Сумма кредита:', str(summa)+'₽')
+    print('Срок кредита:', str(timer)+' мес.') 
+    print('Процентная ставка:', str(procent)+'%') 
+    print('Ежемесячный платëж:', str(int(plata))+'₽')
+    print('\nДата и время оформления:\n',datetime.now().date(), datetime.now().time()) 
+    print('---------------------------\n')
+    print('Возврат меню - 1')
+    back = input('------> ') 
+    while f != -1:
+        if back == '1':
+            f = 1
+            print('\nВозврат в меню...')
+            time.sleep(2)
+            menu() 
+        else:
+            print('\nВы ввели наверное число.')
+            time.sleep(1)
+            print('Вы должны ввести число, которое есть в списке') 
+            time.sleep(2)
+            back = input('------> ') 
+    return plata, summa, timer
+            
+def perevod():
+    x = 0
+    z = 0
+    f = 0
+    global balance
+    time.sleep(0.1)
+    print('\n--------------------------------------------\n')
+    print('Выбранная операция: Перевод средств\n')
+    time.sleep(0.5)
+    print('Выберите банк:\n1 - "Виталий Банк"\n2 - "Тинькофф Банк"\n3 - "Сбербанк"\n4 - "Альфа-Банк"\n')
+    time.sleep(0.1) 
+    bank = input('------> ')
+    while x != -1:
+        if bank == '1':
+            x = -1
+            time.sleep(0.25) 
+        elif bank == '2' or bank == '3' or bank == '4':
+            print('Извините, перевод в сторонние банки\nвременно недоступен.') 
+            time.sleep(1)
+            print('Попробуйте снова через несколько минут.')
+            time.sleep(2) 
+            bank = input('\n------> ')
+        else:
+            print('\nВы ввели наверное число.')
+            time.sleep(1)
+            print('Вы должны ввести число, которое есть в списке\n') 
+            time.sleep(2)
+            bank = input('------> ') 
+    print('\nВведите номер получателя (без +)')
+    number = input('\n------> ')
+    while z != -1:
+        if (number.isdigit()) and len(number) == 11:
+            z = -1
+        else:
+            print('\nВы ввели неверный номер телефона.') 
+            time.sleep(1) 
+            print('Номер телефона должен содержать 11 цифр.') 
+            time.sleep(2) 
+            number = input('\n------> ')   
+    print('\nВведите сумму перевода (в ₽).') 
+    denga = input('\n------> ')
+    if not denga.isdigit():
+        print('\nВы ввели неверное число')
+        time.sleep(1) 
+        print('Пожалуйста, введите число без букв и символов')
+        time.sleep(2) 
+        denga = input('\n------> ')
+    if int(denga) <= balance:
+        balance -= int(denga) 
+        time.sleep(1)
+        print('\nПеревод прошел успешно\n') 
+        time.sleep(2)
+        
+    else:
+        time.sleep(1) 
+        print('\nНа вашем счету недостаточно средств.')
+        time.sleep(1)
+        print('\nВозврат в меню... ') 
+        time.sleep(2)
+        print('.'), time.sleep(2), print('.'), time.sleep(2), print('.\n\n'), time.sleep(2) 
+        menu() 
+    print('----------------------------------') 
+    print('Отправитель:',login[0]) 
+    print('Получатель:',number)
+    print('Сумма перевода:',str(denga)+'₽')
+    print('Время операции:\n',datetime.now()) 
+    print('----------------------------------') 
+    time.sleep(1)
+    print('\nВозврат в меню - 1')
+    back = input('\n------> ') 
+    while f != -1:
+        if back == '1':
+            f = 1
+            print('\nВозврат в меню...')
+            time.sleep(2)
+            menu() 
+        else:
+            print('\nВы ввели наверное число.')
+            time.sleep(1)
+            print('Вы должны ввести число, которое есть в списке') 
+            time.sleep(2)
+            back = input('\n------> ') 
+    
+ #переменные   
+balance = 0
+procent = 5.5
+login = list()
+password = list() 
+
+#функции
+kabinet() 
+vhod() 
+#credit(procent) #для тестов
+#perevod() #для тестов
